@@ -1,3 +1,4 @@
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -40,6 +41,7 @@ public class CourierAuthTest {
 
     // курьер может авторизоваться
     @Test
+    @DisplayName("authCourierAndCheckResponse")
     public void authCourierAndCheckResponse() {
         String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
         Response response =
@@ -56,6 +58,7 @@ public class CourierAuthTest {
     }
     // для авторизации нужно передать все обязательные поля
     @Test
+    @DisplayName("authCourierWithoutLoginAndCheckResponse")
     public void authCourierWithoutLoginAndCheckResponse() {
         String json = "{\"login\": \"\", \"password\": \"" + password + "\"}";
         Response response =
@@ -71,6 +74,7 @@ public class CourierAuthTest {
     }
 
     @Test
+    @DisplayName("authCourierWithoutPasswordAndCheckResponse")
     public void authCourierWithoutPasswordAndCheckResponse() {
         String json = "{\"login\": \"" + login + "\", \"password\": \"\"}";
         Response response =
@@ -87,6 +91,7 @@ public class CourierAuthTest {
 
     // если авторизоваться под несуществующим пользователем, запрос возвращает ошибку
     @Test
+    @DisplayName("authNonExistentCourierAndCheckResponse")
     public void authNonExistentCourierAndCheckResponse() {
         String json = "{\"login\": \"" + login + random.nextInt(999999) + "\", \"password\": \"" + password + "\"}";
         Response response =

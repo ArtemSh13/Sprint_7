@@ -1,3 +1,4 @@
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.After;
@@ -26,6 +27,7 @@ public class OrdersCreateTest {
 
     // можно указать один из цветов — BLACK или GREY
     @Test
+    @DisplayName("createOrdersWithBLACKAndCheckResponse")
     public void createOrdersWithBLACKAndCheckResponse() {
         Random random = new Random();
         String firstName = "firstName" + random.nextInt(999999);
@@ -56,6 +58,7 @@ public class OrdersCreateTest {
     }
 
     @Test
+    @DisplayName("createOrdersWithGREYAndCheckResponse")
     public void createOrdersWithGREYAndCheckResponse() {
         Random random = new Random();
         String firstName = "firstName" + random.nextInt(999999);
@@ -87,6 +90,7 @@ public class OrdersCreateTest {
 
     // можно указать оба цвета
     @Test
+    @DisplayName("createOrdersWithBLACKAndGREYAndCheckResponse")
     public void createOrdersWithBLACKAndGREYAndCheckResponse() {
         Random random = new Random();
         String firstName = "firstName" + random.nextInt(999999);
@@ -117,6 +121,7 @@ public class OrdersCreateTest {
     }
     // можно совсем не указывать цвет
     @Test
+    @DisplayName("createOrdersWithoutColorAndCheckResponse")
     public void createOrdersWithoutColorAndCheckResponse() {
         Random random = new Random();
         String firstName = "firstName" + random.nextInt(999999);

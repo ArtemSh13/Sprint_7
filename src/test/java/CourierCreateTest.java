@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -50,6 +51,7 @@ public class CourierCreateTest {
 
     // курьера можно создать
     @Test
+    @DisplayName("createCourierAndCheckResponse")
     public void createCourierAndCheckResponse() {
         Response response =
                 given()
@@ -67,6 +69,7 @@ public class CourierCreateTest {
 
     // нельзя создать двух одинаковых курьеров
     @Test
+    @DisplayName("createDuplicateCourierAndCheckResponse")
     public void createDuplicateCourierAndCheckResponse() {
         // создаем первого курьера
         given()
@@ -97,22 +100,24 @@ public class CourierCreateTest {
 
     // чтобы создать курьера, нужно передать в ручку все обязательные поля
     @Test
+    @DisplayName("createCourierWithoutLoginAndCheckResponse")
     public void createCourierWithoutLoginAndCheckResponse() {
         String json = "{\"login\": \"\", \"password\": \"" + password + "\"}";
 
         Response response =
                 given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(json)
-                .when()
-                .post(createCourierAPI);
+                        .header("Content-type", "application/json")
+                        .and()
+                        .body(json)
+                        .when()
+                        .post(createCourierAPI);
 
         response.then().assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"))
                 .and().statusCode(400);
     }
 
     @Test
+    @DisplayName("createCourierWithoutPasswordAndCheckResponse")
     public void createCourierWithoutPasswordAndCheckResponse() {
         String json = "{\"login\": \"" + login + "\", \"password\": \"\"}";
 
