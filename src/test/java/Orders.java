@@ -4,12 +4,12 @@ public class Orders {
     private String address;
     private String metroStation;
     private String phone;
-    private String rentTime;
+    private int rentTime;
     private String deliveryDate;
     private String comment;
     private String[] color;
 
-    public Orders(String firstName, String lastName, String address, String metroStation, String phone, String rentTime, String deliveryDate, String comment, String[] color) {
+    public Orders(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -65,11 +65,11 @@ public class Orders {
         this.phone = phone;
     }
 
-    public String getRentTime() {
+    public int getRentTime() {
         return rentTime;
     }
 
-    public void setRentTime(String rentTime) {
+    public void setRentTime(int rentTime) {
         this.rentTime = rentTime;
     }
 
