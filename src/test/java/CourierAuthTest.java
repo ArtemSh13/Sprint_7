@@ -19,10 +19,6 @@ public class CourierAuthTest {
     String firstName = login + " Firstname";
     Courier courier = new Courier(login, password, firstName);
 
-    String createCourierAPI = "/api/v1/courier";
-    String loginCourierAPI = "/api/v1/courier/login";
-    String deleteCourierAPI = "/api/v1/courier/";
-
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
@@ -33,7 +29,7 @@ public class CourierAuthTest {
                         .and()
                         .body(courier)
                         .when()
-                        .post(createCourierAPI);
+                        .post(ScooterAPI.CREATE_COURIER_API);
 
         response.then().assertThat().body("ok", equalTo(true))
                 .and().statusCode(201);
@@ -50,7 +46,7 @@ public class CourierAuthTest {
                         .and()
                         .body(json)
                         .when()
-                        .post(loginCourierAPI);
+                        .post(ScooterAPI.LOGIN_COURIER_API);
 
         response.then().assertThat().body("id", notNullValue())
                 .and().statusCode(200);
@@ -67,7 +63,7 @@ public class CourierAuthTest {
                         .and()
                         .body(json)
                         .when()
-                        .post(loginCourierAPI);
+                        .post(ScooterAPI.LOGIN_COURIER_API);
 
         response.then().assertThat().body("message", equalTo("Недостаточно данных для входа"))
                 .and().statusCode(400);
@@ -83,7 +79,7 @@ public class CourierAuthTest {
                         .and()
                         .body(json)
                         .when()
-                        .post(loginCourierAPI);
+                        .post(ScooterAPI.LOGIN_COURIER_API);
 
         response.then().assertThat().body("message", equalTo("Недостаточно данных для входа"))
                 .and().statusCode(400);
@@ -100,7 +96,7 @@ public class CourierAuthTest {
                         .and()
                         .body(json)
                         .when()
-                        .post(loginCourierAPI);
+                        .post(ScooterAPI.LOGIN_COURIER_API);
 
         response.then().assertThat().body("message", equalTo("Учетная запись не найдена"))
                 .and().statusCode(404);
@@ -115,11 +111,11 @@ public class CourierAuthTest {
                         .and()
                         .body(json)
                         .when()
-                        .post(loginCourierAPI);
+                        .post(ScooterAPI.LOGIN_COURIER_API);
         System.out.println(response.asPrettyString());
         String id = Integer.toString(response.then().extract().path("id"));
         given()
-                .delete(deleteCourierAPI + id)
+                .delete(ScooterAPI.DELETE_COURIER_API + id)
                 .then()
                 .statusCode(200);
     }
