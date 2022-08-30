@@ -6,18 +6,14 @@ import io.restassured.response.Response;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Random;
-
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CourierCreateTest {
 
-    Random random = new Random();
-    String login = "courier" + random.nextInt(999999);
-    String password = "3RuS)+7u[S";
-    String firstName = login + " Firstname";
-    Courier courier = new Courier(login, password, firstName);
+    String login = DataGenerator.getCourierCourierLogin();
+    String password = DataGenerator.getRandomPassword();
+    Courier courier = new Courier(login, password, login + " Firstname");
 
 
     @Before
@@ -29,12 +25,11 @@ public class CourierCreateTest {
     }
 
     public void cleanData() {
-        String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson(login, password))
                         .when()
                         .post(ScooterAPI.LOGIN_COURIER_API);
         System.out.println(response.asPrettyString());
@@ -98,13 +93,11 @@ public class CourierCreateTest {
     @Test
     @DisplayName("createCourierWithoutLoginAndCheckResponse")
     public void createCourierWithoutLoginAndCheckResponse() {
-        String json = "{\"login\": \"\", \"password\": \"" + password + "\"}";
-
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson("", password))
                         .when()
                         .post(ScooterAPI.CREATE_COURIER_API);
 
@@ -115,13 +108,11 @@ public class CourierCreateTest {
     @Test
     @DisplayName("createCourierWithoutPasswordAndCheckResponse")
     public void createCourierWithoutPasswordAndCheckResponse() {
-        String json = "{\"login\": \"" + login + "\", \"password\": \"\"}";
-
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson(login, ""))
                         .when()
                         .post(ScooterAPI.CREATE_COURIER_API);
 

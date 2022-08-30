@@ -13,9 +13,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class CourierAuthTest {
-    Random random = new Random();
-    String login = "courier" + random.nextInt(999999);
-    String password = "3RuS)+7u[S";
+    String login = DataGenerator.getCourierCourierLogin();
+    String password = DataGenerator.getRandomPassword();
 
     @Before
     public void setUp() {
@@ -38,12 +37,11 @@ public class CourierAuthTest {
     @Test
     @DisplayName("authCourierAndCheckResponse")
     public void authCourierAndCheckResponse() {
-        String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson(login, password))
                         .when()
                         .post(ScooterAPI.LOGIN_COURIER_API);
 
@@ -55,12 +53,11 @@ public class CourierAuthTest {
     @Test
     @DisplayName("authCourierWithoutLoginAndCheckResponse")
     public void authCourierWithoutLoginAndCheckResponse() {
-        String json = "{\"login\": \"\", \"password\": \"" + password + "\"}";
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson("", password))
                         .when()
                         .post(ScooterAPI.LOGIN_COURIER_API);
 
@@ -71,12 +68,11 @@ public class CourierAuthTest {
     @Test
     @DisplayName("authCourierWithoutPasswordAndCheckResponse")
     public void authCourierWithoutPasswordAndCheckResponse() {
-        String json = "{\"login\": \"" + login + "\", \"password\": \"\"}";
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson(login, ""))
                         .when()
                         .post(ScooterAPI.LOGIN_COURIER_API);
 
@@ -88,12 +84,11 @@ public class CourierAuthTest {
     @Test
     @DisplayName("authNonExistentCourierAndCheckResponse")
     public void authNonExistentCourierAndCheckResponse() {
-        String json = "{\"login\": \"" + login + random.nextInt(999999) + "\", \"password\": \"" + password + "\"}";
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson("nonExistingLogin", password))
                         .when()
                         .post(ScooterAPI.LOGIN_COURIER_API);
 
@@ -103,12 +98,11 @@ public class CourierAuthTest {
 
     @After
     public void cleanData() {
-        String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
         Response response =
                 given()
                         .header("Content-type", "application/json")
                         .and()
-                        .body(json)
+                        .body(DataGenerator.getLoginPasswordJson(login, password))
                         .when()
                         .post(ScooterAPI.LOGIN_COURIER_API);
         System.out.println(response.asPrettyString());
