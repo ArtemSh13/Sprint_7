@@ -88,7 +88,7 @@ public class CourierCreateTest {
                         .when()
                         .post(ScooterAPI.CREATE_COURIER_API);
 
-        response.then().assertThat().body("message", equalTo("Этот логин уже используется"))
+        response.then().assertThat().body("message", equalTo("Этот логин уже используется. Попробуйте другой."))
                 .and().statusCode(409);
 
         cleanData();
