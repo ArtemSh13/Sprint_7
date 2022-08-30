@@ -13,12 +13,7 @@ import java.util.Random;
 
 public class OrdersCreateTest {
 
-    String createOrdersAPI = "/api/v1/orders";
-    String cancelOrdersAPI = "/api/v1/orders/cancel";
-
     int track;
-
-
 
     @Before
     public void setUp() {
@@ -48,7 +43,7 @@ public class OrdersCreateTest {
                         .and()
                         .body(orders)
                         .when()
-                        .post(createOrdersAPI);
+                        .post(ScooterAPI.CREATE_ORDERS_API);
 
         response.then().assertThat().body("track", notNullValue())
                 .and().statusCode(201);
@@ -79,7 +74,7 @@ public class OrdersCreateTest {
                         .and()
                         .body(orders)
                         .when()
-                        .post(createOrdersAPI);
+                        .post(ScooterAPI.CREATE_ORDERS_API);
         System.out.println(response.asPrettyString());
         response.then().assertThat().body("track", notNullValue())
                 .and().statusCode(201);
@@ -111,7 +106,7 @@ public class OrdersCreateTest {
                         .and()
                         .body(orders)
                         .when()
-                        .post(createOrdersAPI);
+                        .post(ScooterAPI.CREATE_ORDERS_API);
 
         response.then().assertThat().body("track", notNullValue())
                 .and().statusCode(201);
@@ -142,7 +137,7 @@ public class OrdersCreateTest {
                         .and()
                         .body(orders)
                         .when()
-                        .post(createOrdersAPI);
+                        .post(ScooterAPI.CREATE_ORDERS_API);
 
         response.then().assertThat().body("track", notNullValue())
                 .and().statusCode(201);
@@ -161,7 +156,7 @@ public class OrdersCreateTest {
                         .and()
                         .body(json)
                         .when()
-                        .put(cancelOrdersAPI);
+                        .put(ScooterAPI.CANCEL_ORDERS_API);
         System.out.println(response.asPrettyString());
         response.then().assertThat().body("ok", equalTo(true))
                 .and().statusCode(200);
