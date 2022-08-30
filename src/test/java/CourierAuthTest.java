@@ -16,12 +16,11 @@ public class CourierAuthTest {
     Random random = new Random();
     String login = "courier" + random.nextInt(999999);
     String password = "3RuS)+7u[S";
-    String firstName = login + " Firstname";
-    Courier courier = new Courier(login, password, firstName);
 
     @Before
     public void setUp() {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        Courier courier = new Courier(login, password, login + " Firstname");
 
         Response response =
                 given()
