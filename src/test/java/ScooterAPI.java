@@ -5,4 +5,6 @@ public class ScooterAPI {
 
     final static String CREATE_ORDERS_API = "/api/v1/orders";
     final static String CANCEL_ORDERS_API = "/api/v1/orders/cancel";
+
+    final static String GET_ORDERS_LIST_API = "/api/v1/orders";
 }
